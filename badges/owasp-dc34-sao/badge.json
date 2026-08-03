@@ -1,0 +1,28 @@
+{
+  "id": "owasp-dc34-sao",
+  "name": "OWASP DC34 SAO",
+  "family": "SAO",
+  "description": "OWASP-themed touch badge with a ring of addressable LEDs and multiple security-inspired animations.",
+  "image": "owasp-dc34.png",
+  "firmware": "firmware.hex",
+  "version": "v1.0.0",
+  "released": "2026-08-02",
+  "target": "attiny814",
+  "tags": [
+    "OWASP",
+    "15 LEDs",
+    "PTC touch"
+  ],
+  "enabled": false,
+  "baudRate": 460800,
+  "writeDelayMs": 1,
+  "verify": true,
+  "assertSignals": true,
+  "fuses": {
+    "0": "0x00",
+    "2": "0x01",
+    "6": "0x04",
+    "7": "0x00",
+    "8": "0x00"
+  }
+}

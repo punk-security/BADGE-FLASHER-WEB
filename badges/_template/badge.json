@@ -1,0 +1,28 @@
+{
+  "id": "replace-with-folder-name",
+  "name": "Badge name",
+  "family": "Badge type",
+  "description": "A short description shown on the badge card.",
+  "image": "badge.jpg",
+  "firmware": "firmware.hex",
+  "version": "v1.0.0",
+  "released": "2026-08-02",
+  "target": "attiny814",
+  "tags": [
+    "Tag one",
+    "Tag two",
+    "Tag three"
+  ],
+  "enabled": true,
+  "baudRate": 460800,
+  "writeDelayMs": 1,
+  "verify": true,
+  "assertSignals": true,
+  "fuses": {
+    "0": "0x00",
+    "2": "0x01",
+    "6": "0x04",
+    "7": "0x00",
+    "8": "0x00"
+  }
+}

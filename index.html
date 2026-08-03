@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#111b29">
+  <meta name="description" content="Select and flash Punk Security electronic badge firmware using Web Serial and SerialUPDI.">
+  <title>Punk Security Badge Flasher</title>
+  <link rel="icon" href="assets/logo_large.png" type="image/png">
+  <link rel="preload" as="image" href="assets/logo_large.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="./" aria-label="Punk Security Badge Flasher home">
+        <img src="assets/logo_large.png" width="68" height="82" alt="Punk Security zebra shield">
+        <span class="brand-copy">
+          <strong>PUNK<br>SECURITY</strong>
+          <small>The DevSecOps Experts</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Punk Security">
+        <a href="https://punksecurity.co.uk/">home</a>
+        <a href="https://punksecurity.co.uk/products/">services</a>
+        <a href="https://punksecurity.co.uk/tools/">tools</a>
+        <a href="https://punksecurity.co.uk/blog">blog</a>
+        <a href="https://punksecurity.co.uk/events/">events</a>
+        <a href="https://punksecurity.co.uk/aboutus/">about us</a>
+        <a href="https://punksecurity.co.uk/contact/">contact</a>
+      </nav>
+
+      <div class="header-status">
+        <span>Badge flasher</span>
+        <a href="tel:+441609635932">01609 635 932</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-shell">
+        <div class="hero-copy">
+          <p class="kicker">PUNK SECURITY BADGE LAB</p>
+          <h1>Flash your badge.<br><span>Straight from the browser.</span></h1>
+          <p class="hero-text">Choose a badge, connect your SerialUPDI adapter and install the approved firmware. No installer, no uploads and no command line.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#catalogue-title">Choose a badge</a>
+            <span class="privacy-note"><i aria-hidden="true"></i> Firmware stays in this browser tab</span>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-orbit orbit-one"></div>
+          <div class="hero-orbit orbit-two"></div>
+          <div class="hero-colour-block block-purple"></div>
+          <div class="hero-colour-block block-orange"></div>
+          <div class="hero-colour-block block-green"></div>
+          <div class="hero-colour-block block-red"></div>
+          <img src="assets/logo_large.png" alt="">
+          <div class="hero-badge-label">SERIALUPDI<br>402 · 412 · 814</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="content-shell">
+      <div id="support-banner" class="support-banner" role="status"></div>
+
+      <section class="catalogue-section" aria-labelledby="catalogue-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-number">01 / SELECT</p>
+            <h2 id="catalogue-title">Choose a badge</h2>
+          </div>
+          <p id="catalogue-count" class="section-meta">Loading catalogue…</p>
+        </div>
+
+        <div id="badge-grid" class="badge-grid" aria-live="polite"></div>
+        <div id="catalogue-error" class="empty-state" hidden></div>
+      </section>
+
+      <section id="selected-section" class="selected-section" aria-labelledby="selected-title" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="section-number">02 / REVIEW</p>
+            <h2 id="selected-title">Selected firmware</h2>
+          </div>
+          <button id="change-badge" class="text-action" type="button">Change badge</button>
+        </div>
+
+        <article class="selected-card">
+          <div class="selected-image-wrap">
+            <img id="selected-image" src="" alt="">
+            <div id="selected-image-fallback" class="image-fallback" hidden>BADGE</div>
+          </div>
+
+          <div class="selected-copy">
+            <div class="selected-title-row">
+              <div>
+                <p id="selected-eyebrow" class="selected-eyebrow"></p>
+                <h3 id="selected-name"></h3>
+              </div>
+              <span id="firmware-state" class="status-chip"></span>
+            </div>
+            <p id="selected-description" class="selected-description"></p>
+            <div id="selected-tags" class="tag-list"></div>
+
+            <div id="custom-file-actions" class="custom-file-actions" hidden>
+              <label class="custom-target-control" for="custom-target">
+                <span>Target chip</span>
+                <select id="custom-target">
+                  <option value="attiny402">ATtiny402 — 4 KB</option>
+                  <option value="attiny412">ATtiny412 — 4 KB</option>
+                  <option value="attiny814" selected>ATtiny814 — 8 KB</option>
+                </select>
+              </label>
+              <button id="choose-custom-hex" class="button button-secondary" type="button">Choose a HEX file</button>
+              <span class="custom-local-note">Loaded only into this browser tab</span>
+            </div>
+            <input id="custom-hex-input" type="file" accept=".hex,text/plain,application/octet-stream" hidden>
+
+            <dl class="firmware-facts">
+              <div><dt>Firmware</dt><dd id="firmware-file">—</dd></div>
+              <div><dt>Version</dt><dd id="firmware-version">—</dd></div>
+              <div><dt>Target</dt><dd id="firmware-target">—</dd></div>
+              <div><dt>Image size</dt><dd id="firmware-size">—</dd></div>
+            </dl>
+
+            <p id="firmware-message" class="firmware-message"></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="flash-section" aria-labelledby="flash-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-number">03 / FLASH</p>
+            <h2 id="flash-title">Connect and program</h2>
+          </div>
+          <p class="section-meta">Chrome or Edge on desktop</p>
+        </div>
+
+        <div class="flash-layout">
+          <article class="panel connection-panel">
+            <div class="panel-topline">
+              <span class="panel-index">1</span>
+              <div>
+                <h3>Choose your serial adapter</h3>
+                <p>The browser will display a serial-port picker. Select COM5 on your current setup.</p>
+              </div>
+            </div>
+            <button id="choose-port" class="button button-secondary" type="button">Choose serial port</button>
+            <p id="port-status" class="inline-status">No serial port selected</p>
+          </article>
+
+          <article class="panel action-panel">
+            <div class="panel-topline">
+              <span class="panel-index">2</span>
+              <div>
+                <h3>Program the badge</h3>
+                <p id="action-help">Select a badge and connect the programmer to continue.</p>
+              </div>
+            </div>
+            <div class="action-buttons">
+              <button id="identify" class="button button-secondary" type="button" disabled>Check device</button>
+              <button id="flash" class="button button-primary" type="button" disabled>Flash selected badge</button>
+              <button id="cancel" class="button button-danger" type="button" hidden>Cancel</button>
+            </div>
+            <p id="status" class="inline-status" data-type="neutral">Waiting for badge and serial port</p>
+          </article>
+        </div>
+
+        <div class="progress-panel">
+          <div class="progress-copy">
+            <span>Programming progress</span>
+            <strong id="progress-label">Idle — 0%</strong>
+          </div>
+          <progress id="progress" max="100" value="0">0%</progress>
+        </div>
+
+        <details class="advanced-panel">
+          <summary>Advanced programming settings</summary>
+          <div class="advanced-grid">
+            <label>
+              <span>UPDI speed</span>
+              <select id="baud-rate">
+                <option value="460800">460800 — Turbo</option>
+                <option value="230400">230400 — Normal</option>
+                <option value="115200">115200 — Compatibility</option>
+                <option value="57600">57600 — Slow</option>
+              </select>
+            </label>
+            <label>
+              <span>Page-write delay</span>
+              <div class="input-suffix"><input id="write-delay" type="number" min="0" max="50" step="1" value="1"><em>ms</em></div>
+            </label>
+            <label class="toggle-row">
+              <input id="verify" type="checkbox" checked>
+              <span><strong>Verify after flashing</strong><small>Read the programmed flash back byte-for-byte.</small></span>
+            </label>
+            <label class="toggle-row">
+              <input id="assert-signals" type="checkbox" checked>
+              <span><strong>Assert RTS and DTR</strong><small>Useful for adapters with automatic UPDI/UART switching.</small></span>
+            </label>
+          </div>
+          <div class="fuse-line">
+            <span>Fuses</span>
+            <code id="fuse-summary">0:0x00 · 2:0x01 · 6:0x04 · 7:0x00 · 8:0x00</code>
+          </div>
+        </details>
+      </section>
+
+      <section class="log-section" aria-labelledby="log-title">
+        <div class="section-heading compact-heading">
+          <div>
+            <p class="section-number">04 / OUTPUT</p>
+            <h2 id="log-title">Programming log</h2>
+          </div>
+          <div class="log-actions">
+            <button id="clear-log" class="text-action" type="button">Clear</button>
+            <button id="download-log" class="text-action" type="button">Download</button>
+          </div>
+        </div>
+        <div id="log" class="log" role="log" aria-live="polite"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-shell">
+      <div class="footer-brand">
+        <img src="assets/logo_large.png" width="56" height="68" alt="">
+        <div>
+          <strong>PUNK SECURITY BADGE LAB</strong>
+          <span>Firmware and serial traffic remain inside this browser tab.</span>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="https://punksecurity.co.uk/">punksecurity.co.uk</a>
+        <a href="https://punksecurity.co.uk/privacy/">Privacy</a>
+        <a href="https://punksecurity.co.uk/terms-conditions/">Terms of Use</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="updi.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
