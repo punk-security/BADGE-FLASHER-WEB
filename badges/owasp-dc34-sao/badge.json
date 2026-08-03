@@ -13,7 +13,7 @@
     "15 LEDs",
     "PTC touch"
   ],
-  "enabled": false,
+  "enabled": true,
   "baudRate": 460800,
   "writeDelayMs": 1,
   "verify": true,
